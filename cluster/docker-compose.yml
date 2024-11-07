@@ -1,0 +1,71 @@
+version: "3.9"
+
+x-default-node: &default-ignite-node
+  image: "apacheignite/ignite:2.16.0"
+  environment: &default_environment
+    IGNITE_QUIET: "false"
+    CONFIG_URI: "/opt/ignite_config/ignite-config.xml" # copied from ../docker/config/start_node.sh
+    JVM_OPTS: "
+    -Xms512m
+    -Xmx512m
+    -server
+    -XX:+AggressiveOpts 
+    -XX:+UseG1GC 
+    -XX:MaxPermSize=256m 
+    -XX:+DisableExplicitGC 
+    -DIGNITE_PERFORMANCE_SUGGESTIONS_DISABLED=true"
+    #OPTION_LIBS: "ignite-indexing, ignite-rest-http" # ignite-rest-http is required for web-console
+  networks:
+    - cluster-network
+  #  command:
+  #    [ "/bin/sh","-c", "/opt/ignite/apache-ignite/config/my/start_node.sh" ] # copied from ../docker/config/start_node.sh
+  volumes:
+    - "./ignite_config:/opt/ignite_config"
+    #- "./libs:/opt/ignite/apache-ignite/libs/external"
+
+services:
+
+  ignite-node1:
+    <<: *default-ignite-node
+    hostname: "ignite-node1"
+    container_name: "ignite-node1"
+    environment:
+      <<: *default_environment
+      DISCOVERY_PORT_VAR: "47501"
+      COMMUNICATION_PORT_VAR: "47101"
+      CLIENT_PORT_VAR: "10801"
+    ports:
+      - "47501:47501"
+      - "47101:47101"
+      - "10801:10801"
+
+  ignite-node2:
+    <<: *default-ignite-node
+    hostname: "ignite-node2"
+    container_name: "ignite-node2"
+    environment:
+      <<: *default_environment
+      DISCOVERY_PORT_VAR: "47502"
+      COMMUNICATION_PORT_VAR: "47102"
+      CLIENT_PORT_VAR: "10802"
+    ports:
+      - "47502:47502"
+      - "47102:47102"
+      - "10802:10802"
+  ignite-node3:
+    <<: *default-ignite-node
+    hostname: "ignite-node3"
+    container_name: "ignite-node3"
+    environment:
+      <<: *default_environment
+      DISCOVERY_PORT_VAR: "47503"
+      COMMUNICATION_PORT_VAR: "47103"
+      CLIENT_PORT_VAR: "10803"
+    ports:
+      - "47503:47503"
+      - "47103:47103"
+      - "10803:10803"
+
+networks:
+  cluster-network:
+    name: ignite-cluster-net

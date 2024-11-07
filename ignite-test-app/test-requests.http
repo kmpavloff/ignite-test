@@ -1,0 +1,12 @@
+###
+POST http://localhost:8080/api/cache/aaaa
+
+sad
+asd
+asd
+
+###
+GET http://localhost:8080/api/cache/aaaa
+
+###
+GET http://localhost:8080/api/cache/bbbb
