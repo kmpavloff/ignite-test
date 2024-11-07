@@ -1,5 +1,6 @@
+## Тестовое приложение на Spring Boot Web
 
-В конфигурации запуска необходимо добавить следующие VM option:
+В конфигурации IDEA для запуска приложения необходимо добавить следующие VM option:
 ```
 --add-opens=java.base/jdk.internal.misc=ALL-UNNAMED
 --add-opens=java.base/sun.nio.ch=ALL-UNNAMED
@@ -11,13 +12,5 @@
 --add-opens=java.base/java.nio=ALL-UNNAMED
 --add-opens=java.base/java.util=ALL-UNNAMED
 --add-opens=java.base/java.lang=ALL-UNNAMED
-```
-
-Для активации кластера необходимо выполнить команду:
-```bash
-# заходим на первую ноду по bash
-docker exec -it ignite-node1 bash
-# активируем кластер
-ignite-node1:/opt/ignite# ./apache-ignite/bin/control.sh --activate
 ```
 
