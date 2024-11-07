@@ -1,4 +1,3 @@
-version: "3.9"
 
 x-default-node: &default-ignite-node
   image: "apacheignite/ignite:2.16.0"
@@ -17,8 +16,6 @@ x-default-node: &default-ignite-node
     #OPTION_LIBS: "ignite-indexing, ignite-rest-http" # ignite-rest-http is required for web-console
   networks:
     - cluster-network
-  #  command:
-  #    [ "/bin/sh","-c", "/opt/ignite/apache-ignite/config/my/start_node.sh" ] # copied from ../docker/config/start_node.sh
   volumes:
     - "./ignite_config:/opt/ignite_config"
     #- "./libs:/opt/ignite/apache-ignite/libs/external"

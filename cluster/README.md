@@ -14,7 +14,7 @@ docker-compose up
 # заходим на первую ноду по bash
 docker exec -it ignite-node1 bash
 # активируем кластер
-ignite-node1:/opt/ignite# ./apache-ignite/bin/control.sh --activate
+./apache-ignite/bin/control.sh --activate
 ```
 
 Для остановки кластера Ctrl+C и для удаления контейнеров:
