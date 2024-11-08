@@ -13,25 +13,20 @@ public class CacheController {
     @Autowired
     private ClientConfiguration cfg;
 
-    @GetMapping("/api/hello")
-    public String hello() {
-        return "Hello, World from REST Controller!";
-    }
-
-    @PostMapping("/api/cache/{name}")
-    public String putInCache(@PathVariable String name, @RequestBody String body) {
+    @PostMapping("/api/cache/{key}")
+    public String putInCache(@PathVariable String key, @RequestBody String body) {
         try (IgniteClient client = Ignition.startClient(cfg)) {
             ClientCache<String, String> cache = client.cache("someCache");
-            cache.put(name, body);
-            return cache.get(name);
+            cache.put(key, body);
+            return cache.get(key);
         }
     }
 
-    @GetMapping("/api/cache/{name}")
-    public String getCache(@PathVariable String name) {
+    @GetMapping("/api/cache/{key}")
+    public String getCache(@PathVariable String key) {
         try (IgniteClient client = Ignition.startClient(cfg)) {
             ClientCache<String, String> cache = client.cache("someCache");
-            return cache.get(name);
+            return cache.get(key);
         }
     }
 
