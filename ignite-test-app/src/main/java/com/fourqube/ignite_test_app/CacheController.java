@@ -18,7 +18,7 @@ public class CacheController {
         try (IgniteClient client = Ignition.startClient(cfg)) {
             ClientCache<String, String> cache = client.cache("someCache");
             cache.put(key, body);
-            return cache.get(key);
+            return "OK";
         }
     }
 
